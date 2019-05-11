@@ -1,5 +1,10 @@
 <template>
-  <div class="quote__container">
+  <div
+    :class="{
+      'quote__container--sm': $breakpoint.is.smAndDown
+    }"
+    class="quote__container"
+  >
     <span class="quote__text">"{{ quote.text }}"</span>
     <span
       :class="{
@@ -26,7 +31,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(JSON.stringify(this.randomQuote))
       this.quote = this.randomQuote()
     }
   },
@@ -46,7 +50,11 @@ export default {
 .quote__container {
   margin: 0 auto;
   padding: 0;
-  margin-bottom: 10px;
+  max-width: 600px;
+}
+
+.quote__container--sm {
+  max-width: 250px;
 }
 
 .quote__text,

@@ -1,5 +1,8 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
+import axios from 'axios'
 import pkg from './package'
+
+const STORYBLOK_TOKEN = 'aIJuarUNgJGXTh7b5ZGDfAtt'
 
 export default {
   mode: 'universal',
@@ -75,7 +78,7 @@ export default {
     '@nuxtjs/pwa',
     [
       'storyblok-nuxt',
-      { accessToken: 'aIJuarUNgJGXTh7b5ZGDfAtt', cacheProvider: 'memory' }
+      { accessToken: STORYBLOK_TOKEN, cacheProvider: 'memory' }
     ],
     [
       'nuxt-fontawesome',
@@ -96,6 +99,36 @@ export default {
    */
   router: {
     middleware: 'languageDetection'
+  },
+
+  /*
+   ** Nuxt.js page generation
+   */
+  generate: {
+    routes: function(callback) {
+      const token = STORYBLOK_TOKEN
+      const version = 'published'
+      let cacheVersion = 0
+      const routes = ['/'] // adds / directly
+
+      axios
+        .get(`https://api.storyblok.com/v1/cdn/spaces/me?token=${token}`)
+        .then(spaceRes => {
+          cacheVersion = spaceRes.data.space.version
+          axios
+            .get(
+              `https://api.storyblok.com/v1/cdn/links?token=${token}&version=${version}&cv=${cacheVersion}`
+            )
+            .then(res => {
+              Object.keys(res.data.links).forEach(key => {
+                if (!res.data.links[key].slug !== 'yhdistys') {
+                  routes.push('/' + res.data.links[key].slug)
+                }
+              })
+              callback(null, routes)
+            })
+        })
+    }
   },
 
   /*

@@ -1,12 +1,9 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import axios from 'axios'
-import env from 'dotenv'
 import pkg from './package'
 
-env.config()
-
-const STORYBLOK_TOKEN_PUBLIC = process.env.STORYBLOK_TOKEN_PUBLIC
-const STORYBLOK_TOKEN_PREVIEW = process.env.STORYBLOK_TOKEN_PREVIEW
+const STORYBLOK_TOKEN_PUBLIC = 'rDIS7lGgx5ph9o7kjvQYKQtt'
+const STORYBLOK_TOKEN_PREVIEW = 'RRnuVUdrvoOJ3zYcfeOvEQtt'
 
 export default {
   mode: 'spa',

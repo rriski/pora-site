@@ -1,11 +1,15 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import axios from 'axios'
+import env from 'dotenv'
 import pkg from './package'
 
-const STORYBLOK_TOKEN = 'aIJuarUNgJGXTh7b5ZGDfAtt'
+env.config()
+
+const STORYBLOK_TOKEN_PUBLIC = process.env.STORYBLOK_TOKEN_PUBLIC
+const STORYBLOK_TOKEN_PREVIEW = process.env.STORYBLOK_TOKEN_PREVIEW
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
    ** Headers of the page
@@ -56,10 +60,20 @@ export default {
    */
   loading: { color: '#fff' },
 
+  loadingIndicator: {
+    name: 'three-bounce',
+    color: '#fff',
+    background: '#212121'
+  },
+
   /*
    ** Global CSS
    */
-  css: ['~/assets/style/app.styl', '~/assets/_variables.scss', '~/assets/_global.scss'],
+  css: [
+    '~/assets/style/app.styl',
+    '~/assets/_variables.scss',
+    '~/assets/_global.scss'
+  ],
 
   /*
    ** Plugins to load before mounting the App
@@ -78,7 +92,7 @@ export default {
     '@nuxtjs/pwa',
     [
       'storyblok-nuxt',
-      { accessToken: STORYBLOK_TOKEN, cacheProvider: 'memory' }
+      { accessToken: STORYBLOK_TOKEN_PREVIEW, cacheProvider: 'memory' }
     ],
     [
       'nuxt-fontawesome',
@@ -106,7 +120,7 @@ export default {
    */
   generate: {
     routes: function(callback) {
-      const token = STORYBLOK_TOKEN
+      const token = STORYBLOK_TOKEN_PUBLIC
       const version = 'published'
       let cacheVersion = 0
       const routes = ['/'] // adds / directly

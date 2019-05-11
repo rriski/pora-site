@@ -1,10 +1,31 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+  <v-app dark>
+    <Menu app />
+    <MenuDrawer app />
+    <v-content>
+      <nuxt />
+    </v-content>
+    <Footer app />
+  </v-app>
 </template>
 
-<style>
+<script>
+import Menu from '~/components/Menu.vue'
+import MenuDrawer from '~/components/MenuDrawer.vue'
+import Footer from '~/components/Footer.vue'
+
+export default {
+  components: {
+    Menu,
+    MenuDrawer,
+    Footer
+  }
+}
+</script>
+
+<style lang="scss">
+@import '~assets/_variables.scss';
+
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -17,39 +38,25 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+body {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+.layout {
+  min-height: 100vh;
+}
+
+a {
+  color: $link-color;
   text-decoration: none;
-  padding: 10px 30px;
+  border-bottom: 2px solid transparent;
+  &:hover,
+  &:focus {
+    color: $link-color-hover;
+  }
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+a:hover {
+  border-bottom: 2px solid $link-color-hover;
 }
 </style>

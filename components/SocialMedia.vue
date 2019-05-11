@@ -1,5 +1,5 @@
 <template>
-  <div class="footer__icons">
+  <div>
     <a href="https://www.facebook.com/Polyteknikkojenraittiusseura/">
       <fa :icon="['fab', 'facebook-square']" class="icon" :class="faSize" />
     </a>
@@ -21,9 +21,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.footer__icons {
-}
-
 .icon {
   margin-right: 10px;
 }

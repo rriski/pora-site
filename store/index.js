@@ -25,12 +25,10 @@ export const mutations = {
 
 export const actions = {
   loadSettings({ commit }, context) {
-    const lang = context.language
+    const { language, version } = context
 
     return this.$storyapi
-      .get(`cdn/stories/${lang}/asetukset`, {
-        version: context.version
-      })
+      .get(`cdn/stories/${language}/asetukset`, { version: version })
       .then(res => {
         commit('setSettings', res.data.story.content)
       })

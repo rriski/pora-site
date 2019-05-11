@@ -1,23 +1,17 @@
-function getValidLanguage(lang1, lang2) {
+function getValidLanguage(lang) {
   const validLanguages = ['fi', 'en', 'nl']
-  const firstValid = validLanguages.some(l => l === lang1)
-  const secondValid = validLanguages.some(l => l === lang2)
+  const isValid = validLanguages.some(l => l === lang)
 
-  if (firstValid) {
-    return lang1
-  } else if (secondValid) {
-    return lang2
+  if (isValid) {
+    return lang
   }
 }
 
 export default function({ app, isServer, route, store, isDev }) {
-  const version = route.query._storyblok || isDev ? 'draft' : 'published'
-
+  const version = isDev ? 'draft' : 'published'
   const path = route.params.pathMatch
-  const lang1 = path.substring(0, 2)
-  const lang2 = path.slice(1).substring(0, 2)
-
-  const language = getValidLanguage(lang1, lang2) || 'fi'
+  const lang = path.replace(/\//g, '').substring(0, 2)
+  const language = getValidLanguage(lang) || 'fi'
 
   if (isServer) {
     store.commit('setCacheVersion', app.$storyapi.cacheVersion)

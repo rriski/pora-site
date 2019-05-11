@@ -3,6 +3,7 @@ import Page from '~/components/Page.vue'
 import Menu from '~/components/Menu.vue'
 import MenuDrawer from '~/components/MenuDrawer.vue'
 import PageHeader from '~/components/PageHeader.vue'
+import PageHeaderFrontpage from '~/components/PageHeaderFrontpage.vue'
 import PageContent from '~/components/PageContent.vue'
 import Heading from '~/components/Heading.vue'
 import Grid from '~/components/Grid.vue'
@@ -19,7 +20,7 @@ Vue.component('blok-page', Page)
 Vue.component('blok-menu', Menu)
 Vue.component('blok-menu-drawer', MenuDrawer)
 Vue.component('blok-page-header', PageHeader)
-Vue.component('blok-page-header-frontpage', PageHeader)
+Vue.component('blok-page-header-frontpage', PageHeaderFrontpage)
 Vue.component('blok-page-content', PageContent)
 Vue.component('blok-heading', Heading)
 Vue.component('blok-grid', Grid)

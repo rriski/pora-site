@@ -1,16 +1,16 @@
 <template>
   <v-parallax dark :src="imgUrl" :height="imageHeight">
-    <PageHeaderTitle :blok="blok" />
+    <PageHeaderTitleFrontpage :blok="blok" />
   </v-parallax>
 </template>
 
 <script>
-import PageHeaderTitle from '~/components/PageHeaderTitle.vue'
+import PageHeaderTitleFrontpage from '~/components/PageHeaderTitleFrontpage.vue'
 import { transformImage } from '~/services/transformImageService.js'
 
 export default {
   components: {
-    PageHeaderTitle
+    PageHeaderTitleFrontpage
   },
   props: ['blok'],
   computed: {

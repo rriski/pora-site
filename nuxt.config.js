@@ -123,7 +123,7 @@ export default {
       const token = STORYBLOK_TOKEN_PUBLIC
       const version = 'published'
       let cacheVersion = 0
-      const routes = ['/'] // adds / directly
+      const routes = ['/']
 
       axios
         .get(`https://api.storyblok.com/v1/cdn/spaces/me?token=${token}`)

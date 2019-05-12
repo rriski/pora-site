@@ -2,9 +2,7 @@
   <v-footer
     :height="70"
     class="footer"
-    :class="{
-      'footer--sm': $breakpoint.is.smAndDown
-    }"
+    :class="{ 'footer--sm': $breakpoint.is.smAndDown }"
   >
     <Quote />
     <SocialMedia />

@@ -1,6 +1,6 @@
 <template>
   <div v-editable="blok">
-    <v-card :class="elevation" class="pa-4">
+    <v-card :class="[getElevation, getPadding]">
       <div v-html="content"></div>
     </v-card>
   </div>
@@ -10,7 +10,7 @@
 import md from 'markdown-it'
 
 export default {
-  props: ['blok', 'elevation'],
+  props: ['blok', 'elevation', 'padding'],
   data: function() {
     return {
       content: null
@@ -19,6 +19,9 @@ export default {
   computed: {
     getElevation() {
       return this.elevation || 'elevation-3'
+    },
+    getPadding() {
+      return this.padding || 'pa-4'
     }
   },
   created() {

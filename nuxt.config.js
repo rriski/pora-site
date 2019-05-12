@@ -2,11 +2,18 @@ import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import axios from 'axios'
 import pkg from './package'
 
-const STORYBLOK_TOKEN_PUBLIC = 'rDIS7lGgx5ph9o7kjvQYKQtt'
-const STORYBLOK_TOKEN_PREVIEW = 'RRnuVUdrvoOJ3zYcfeOvEQtt'
+require('dotenv').config()
 
 export default {
   mode: 'spa',
+
+  env: {
+    STORYBLOK_TOKEN_PUBLIC: process.env.STORYBLOK_TOKEN_PUBLIC,
+    STORYBLOK_TOKEN_PREVIEW: process.env.STORYBLOK_TOKEN_PREVIEW,
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CALENDAR_ID: process.env.GOOGLE_CALENDAR_ID
+  },
 
   /*
    ** Headers of the page
@@ -76,10 +83,11 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '@/plugins/vuetify',
+    '~/plugins/vuetify',
     '~/plugins/components',
     '~/plugins/filters',
-    '~/plugins/breakpoints'
+    '~/plugins/breakpoints',
+    '~/plugins/googleApi'
   ],
 
   /*
@@ -87,9 +95,13 @@ export default {
    */
   modules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/dotenv',
     [
       'storyblok-nuxt',
-      { accessToken: STORYBLOK_TOKEN_PREVIEW, cacheProvider: 'memory' }
+      {
+        accessToken: process.env.STORYBLOK_TOKEN_PREVIEW,
+        cacheProvider: 'memory'
+      }
     ],
     [
       'nuxt-fontawesome',
@@ -117,7 +129,7 @@ export default {
    */
   generate: {
     routes: function(callback) {
-      const token = STORYBLOK_TOKEN_PUBLIC
+      const token = process.env.STORYBLOK_TOKEN_PUBLIC
       const version = 'published'
       let cacheVersion = 0
       const routes = ['/']

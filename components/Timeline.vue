@@ -1,7 +1,7 @@
 <template>
   <v-timeline v-editable="blok" :dense="$breakpoint.is.smAndDown">
     <v-timeline-item
-      v-for="item in blok.timeline_items"
+      v-for="(item, index) in blok.timeline_items"
       :key="item._uid"
       color="#000"
       small
@@ -18,7 +18,7 @@
         v-text="item.year"
       />
       <v-card v-slot:default class="elevation-2">
-        <v-img v-if="item.image" :src="item.image" />
+        <v-img v-if="item.image" :src="imgUrls[index]" />
         <v-card-title class="headline timeline__headline">
           {{ item.headline }}
         </v-card-title>
@@ -36,11 +36,22 @@
 </template>
 
 <script>
+import { transformImage } from '~/services/transformImageService.js'
+
 export default {
   props: ['blok'],
   computed: {
     slot: function() {
       return this.$breakpoint.is.smAndDown ? null : 'opposite'
+    },
+    imgUrls() {
+      return this.blok.timeline_items.map(item => {
+        const image = item.image
+        const url = image
+          ? transformImage(image, 'fit-in/400x400/filters:quality(100)')
+          : ''
+        return url
+      })
     }
   }
 }

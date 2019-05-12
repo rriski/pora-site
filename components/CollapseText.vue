@@ -6,12 +6,18 @@
       :key="formatted_text._uid"
       :blok="formatted_text"
       :elevation="'elevation-0'"
+      :padding="padding"
     />
   </div>
 </template>
 
 <script>
 export default {
-  props: ['blok']
+  props: ['blok'],
+  computed: {
+    padding() {
+      return this.$breakpoint.is.smAndDown ? 'pa-0' : 'pa-4'
+    }
+  }
 }
 </script>

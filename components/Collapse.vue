@@ -14,7 +14,6 @@
             <v-layout
               class="collapse__layout"
               align-center
-              justify-center
               row
               fill-height
               wrap

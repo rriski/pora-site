@@ -1,8 +1,7 @@
 <template>
   <v-navigation-drawer
     :value="drawer"
-    absolute
-    touchless
+    fixed
     disable-resize-watcher
     @input="closeDrawer"
   >
@@ -39,7 +38,6 @@ export default {
   components: {
     LogoDrawer
   },
-  props: ['blok'],
   computed: {
     singleMenus: function() {
       return this.$store.state.settings.main_menu.filter(

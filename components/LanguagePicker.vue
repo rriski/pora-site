@@ -16,18 +16,18 @@
           </v-list-tile-title>
         </v-list-tile>
         <v-list-tile>
-          <span class="flag flag-icon flag-icon-gb" />
-          <v-list-tile-title>
-            <nuxt-link :to="'/en/etusivu'">
-              English
-            </nuxt-link>
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile>
           <span class="flag flag-icon flag-icon-nl" />
           <v-list-tile-title>
             <nuxt-link :to="'/nl/etusivu'">
               Netherlands
+            </nuxt-link>
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile>
+          <span class="flag flag-icon flag-icon-gb" />
+          <v-list-tile-title>
+            <nuxt-link :to="'/en/etusivu'">
+              English
             </nuxt-link>
           </v-list-tile-title>
         </v-list-tile>

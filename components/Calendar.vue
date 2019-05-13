@@ -1,12 +1,13 @@
 <template>
   <div>
     <v-flex xs12 class="mb-3 calendar__container">
-      <v-sheet height="500">
+      <v-sheet>
         <v-calendar
           ref="calendar"
           v-model="today"
           :value="today"
           :weekdays="weekdays"
+          :class="{ 'calendar--sm': $breakpoint.is.smAndDown }"
           color="secondary"
         >
           <template v-if="events.length < 1" v-slot:day="{ date }">
@@ -27,27 +28,51 @@
               >
                 <template v-slot:activator="{ on }">
                   <div
-                    v-if="!event.time"
                     v-ripple
                     class="event"
+                    :class="{ 'event--sm': $breakpoint.is.smAndDown }"
                     v-on="on"
-                    v-html="event.summary"
+                    v-html="
+                      event.startTime +
+                        '-' +
+                        event.endTime +
+                        '<br />' +
+                        event.summary
+                    "
                   />
                 </template>
                 <v-card
-                  v-if="event.description"
+                  v-if="event.summary"
                   color="grey lighten-4"
                   min-width="350px"
                   flat
                 >
                   <v-toolbar color="secondary">
-                    <v-toolbar-title v-html="event.summary" />
+                    <v-toolbar-title
+                      v-html="
+                        event.summary +
+                          ' ' +
+                          event.startTime +
+                          '-' +
+                          event.endTime
+                      "
+                    />
                   </v-toolbar>
                   <v-card-title primary-title>
-                    <span
-                      class="calendar__card__description"
-                      v-html="event.description"
-                    />
+                    <div class="calendar__card__text">
+                      <div
+                        v-if="event.description"
+                        v-html="'<b>Description</b>: ' + event.description"
+                      />
+                      <div
+                        v-else-if="event.summary"
+                        v-html="'<b>Description</b>: ' + event.summary"
+                      />
+                      <div
+                        v-if="event.location"
+                        v-html="'<b>Location:</b> ' + event.location"
+                      />
+                    </div>
                   </v-card-title>
                   <v-card-actions>
                     <v-btn color="secondary">
@@ -95,10 +120,17 @@ export default {
     eventsMap() {
       const map = {}
       this.events.forEach(e => {
-        const parts = e.start.dateTime.slice(0, -1).split('T')
-        const date = parts[0]
-        e.date = date
-        return (map[date] = map[date] || []).push(e)
+        const startParts = e.start.dateTime.slice(0, -1).split('T')
+        const endParts = e.end.dateTime.slice(0, -1).split('T')
+        e = {
+          description: e.description,
+          summary: e.summary,
+          location: e.location,
+          date: startParts[0],
+          startTime: startParts[1].split('+')[0].slice(0, 5),
+          endTime: endParts[1].split('+')[0].slice(0, 5)
+        }
+        return (map[e.date] = map[e.date] || []).push(e)
       })
 
       return map
@@ -128,10 +160,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.calendar--sm {
+  font-size: 0.7rem;
+}
+
 .event {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   border-radius: 2px;
   background-color: #455a64;
   color: #ffffff;
@@ -141,9 +174,17 @@ export default {
   padding: 3px;
   cursor: pointer;
   margin-bottom: 1px;
+  flex: 1 1 auto;
 }
 
-.calendar__card__description {
+.event--sm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar__card__text {
   color: black;
+  display: block;
 }
 </style>

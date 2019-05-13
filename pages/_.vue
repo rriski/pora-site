@@ -35,6 +35,7 @@ const loadData = function({ api, cacheVersion, errorCallback, version, path }) {
 }
 
 export default {
+  transition: 'fade',
   data() {
     return { story: { content: {} } }
   },

@@ -4,36 +4,28 @@
 
 <script>
 export default {
+  props: ['blok'],
   computed: {
     items: function() {
-      const arr = this.$route.path
-        .split('/')
-        .slice(1)
-        .map(this.capitalizeFirstLetter)
-
-      if (arr[0] === '') {
-        arr.shift()
+      const map = []
+      const lang = this.$store.state.language.toUpperCase()
+      const firstItem = {
+        text: lang,
+        disabled: true
       }
 
-      return arr.reduce((acc, item, index) => {
-        const prevHref = acc[index - 1] ? acc[index - 1].href : ''
+      map.push(firstItem)
+      const items = this.blok.path.split('/')
 
-        const isDisabled =
-          item === arr[0] || (item === arr[1] && arr.length > 2)
-        return [
-          ...acc,
-          {
-            text: item,
-            disabled: isDisabled,
-            href: prevHref + '/' + item.toLowerCase()
-          }
-        ]
-      }, [])
-    }
-  },
-  methods: {
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+      items.forEach(i => {
+        i = {
+          text: i,
+          disabled: true
+        }
+        return map.push(i)
+      })
+
+      return map
     }
   }
 }

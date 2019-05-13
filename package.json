@@ -28,6 +28,7 @@
     "nuxt": "^2.4.0",
     "nuxt-fontawesome": "^0.4.0",
     "storyblok-nuxt": "^1.0.1",
+    "vue-content-loader": "^0.2.1",
     "vue-gapi": "^0.0.10",
     "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.2"

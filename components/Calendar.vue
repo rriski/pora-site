@@ -9,7 +9,15 @@
           :weekdays="weekdays"
           color="secondary"
         >
-          <template v-slot:day="{ date }">
+          <template v-if="events.length < 1" v-slot:day="{ date }">
+            <ContentLoader
+              :height="100"
+              primary-color="#808080"
+              secondary-color="#444444"
+              :animate="true"
+            />
+          </template>
+          <template v-else v-slot:day="{ date }">
             <template v-for="event in eventsMap[date]">
               <v-menu
                 :key="event.summary"
@@ -69,12 +77,18 @@
 </template>
 
 <script>
+import { ContentLoader } from 'vue-content-loader'
+
 export default {
+  components: {
+    ContentLoader
+  },
   props: ['blok'],
   data: () => ({
     today: new Date().toISOString().split('T')[0],
     weekdays: [1, 2, 3, 4, 5, 6, 0],
-    events: []
+    events: [],
+    uniqueKey: ''
   }),
   computed: {
     // convert the list of events into a map of lists keyed by date

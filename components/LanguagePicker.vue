@@ -1,6 +1,6 @@
 <template>
   <div class="text-xs-center">
-    <v-menu open-on-hover offset-y>
+    <v-menu :open-on-hover="!$breakpoint.is.smAndDown" offset-y>
       <template v-slot:activator="{ on }">
         <v-btn flat v-on="on">
           Language

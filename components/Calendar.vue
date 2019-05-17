@@ -20,49 +20,51 @@
           </template>
           <template v-else v-slot:day="{ date }">
             <template v-for="event in eventsMap[date]">
-              <v-menu
-                :key="event.summary"
-                v-model="event.open"
-                full-width
-                offset-x
-              >
+              <v-menu :key="event.summary" full-width offset-x>
                 <template v-slot:activator="{ on }">
                   <div
+                    v-if="event.startTime"
                     v-ripple
                     class="event"
                     :class="{ 'event--sm': $breakpoint.is.smAndDown }"
                     v-on="on"
                     v-html="
-                      event.startTime +
+                      '<b>' +
+                        event.startTime +
                         '-' +
                         event.endTime +
+                        '</b>' +
                         '<br />' +
                         event.summary
                     "
                   />
+                  <div
+                    v-else
+                    v-ripple
+                    class="event"
+                    :class="{ 'event--sm': $breakpoint.is.smAndDown }"
+                    v-on="on"
+                    v-html="event.summary"
+                  />
                 </template>
-                <v-card
-                  v-if="event.summary"
-                  color="grey lighten-4"
-                  min-width="350px"
-                  flat
-                >
+                <v-card color="grey lighten-4" flat>
                   <v-toolbar color="secondary">
-                    <v-toolbar-title
-                      v-html="
-                        event.summary +
-                          ' ' +
-                          event.startTime +
-                          '-' +
-                          event.endTime
-                      "
-                    />
+                    <v-toolbar-title v-html="event.summary" />
                   </v-toolbar>
                   <v-card-title primary-title>
                     <div class="calendar__card__text">
                       <div
+                        v-if="event.startTime"
+                        v-html="
+                          '<b>Time</b>: ' +
+                            event.startTime +
+                            '-' +
+                            event.endTime
+                        "
+                      />
+                      <div
                         v-if="event.description"
-                        v-html="'<b>Description</b>: ' + event.description"
+                        v-html="'<b>Description</b>:' + event.description"
                       />
                       <div
                         v-else-if="event.summary"
@@ -120,17 +122,44 @@ export default {
     eventsMap() {
       const map = {}
       this.events.forEach(e => {
-        const startParts = e.start.dateTime.slice(0, -1).split('T')
-        const endParts = e.end.dateTime.slice(0, -1).split('T')
-        e = {
-          description: e.description,
-          summary: e.summary,
-          location: e.location,
-          date: startParts[0],
-          startTime: startParts[1].split('+')[0].slice(0, 5),
-          endTime: endParts[1].split('+')[0].slice(0, 5)
+        const dates = []
+
+        const { start, end, summary, description, location } = e
+
+        if (start.dateTime) {
+          // Event with a date and time
+          const startParts = start.dateTime.slice(0, -1).split('T')
+          const endParts = end.dateTime.slice(0, -1).split('T')
+
+          e = {
+            description: description,
+            summary: summary,
+            location: location,
+            date: startParts[0],
+            startTime: startParts[1].split('+')[0].slice(0, 5),
+            endTime: endParts[1].split('+')[0].slice(0, 5)
+          }
+          dates.push(e)
+        } else {
+          // Multi day events
+          const endDate = new Date(end.date)
+
+          let loop = new Date(start.date)
+          while (loop < endDate) {
+            e = {
+              description: description,
+              summary: summary,
+              location: location,
+              date: loop.toISOString().split('T')[0]
+            }
+            dates.push(e)
+
+            const newDate = loop.setDate(loop.getDate() + 1)
+            loop = new Date(newDate)
+          }
         }
-        return (map[e.date] = map[e.date] || []).push(e)
+
+        dates.forEach(d => (map[d.date] = map[d.date] || []).push(d))
       })
 
       return map
@@ -142,7 +171,7 @@ export default {
         .list({
           calendarId: 'miqv1ra1mb1878p9d5766i8a7g@group.calendar.google.com',
           timeMin: new Date().toISOString(),
-          maxResults: 10,
+          maxResults: 250,
           singleEvents: true,
           orderBy: 'startTime'
         })
@@ -150,11 +179,6 @@ export default {
           this.events = response.result.items
         })
     })
-  },
-  methods: {
-    open(event) {
-      alert(event.title)
-    }
   }
 }
 </script>
@@ -185,6 +209,5 @@ export default {
 
 .calendar__card__text {
   color: black;
-  display: block;
 }
 </style>

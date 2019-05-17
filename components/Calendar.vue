@@ -5,6 +5,7 @@
         <v-calendar
           ref="calendar"
           v-model="today"
+          class="calendar"
           :value="today"
           :weekdays="weekdays"
           :class="{ 'calendar--sm': $breakpoint.is.smAndDown }"
@@ -19,8 +20,8 @@
             />
           </template>
           <template v-else v-slot:day="{ date }">
-            <template v-for="event in eventsMap[date]">
-              <v-menu :key="event.summary" full-width offset-x>
+            <template v-for="(event, index) in eventsMap[date]">
+              <v-menu :key="event.date + index" full-width offset-x>
                 <template v-slot:activator="{ on }">
                   <div
                     v-if="event.startTime"
@@ -114,8 +115,7 @@ export default {
   data: () => ({
     today: new Date().toISOString().split('T')[0],
     weekdays: [1, 2, 3, 4, 5, 6, 0],
-    events: [],
-    uniqueKey: ''
+    events: []
   }),
   computed: {
     // convert the list of events into a map of lists keyed by date
@@ -166,12 +166,15 @@ export default {
     }
   },
   mounted() {
+    const d = new Date()
+    d.setDate(d.getDate() - 100)
+
     this.$getGapiClient().then(gapi => {
       gapi.client.calendar.events
         .list({
           calendarId: 'miqv1ra1mb1878p9d5766i8a7g@group.calendar.google.com',
-          timeMin: new Date().toISOString(),
-          maxResults: 250,
+          timeMin: d.toISOString(),
+          maxResults: 500,
           singleEvents: true,
           orderBy: 'startTime'
         })
@@ -184,8 +187,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.calendar {
+  min-height: 700px;
+}
+
 .calendar--sm {
   font-size: 0.7rem;
+  min-height: 550px;
 }
 
 .event {

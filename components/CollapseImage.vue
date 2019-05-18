@@ -11,7 +11,7 @@ export default {
     imgUrl() {
       return transformImage(
         this.blok.image,
-        'fit-in/500x500/filters:quality(100)'
+        'fit-in/500x500/filters:quality(80)'
       )
     }
   }

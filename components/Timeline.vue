@@ -48,7 +48,7 @@ export default {
       return this.blok.timeline_items.map(item => {
         const image = item.image
         const url = image
-          ? transformImage(image, 'fit-in/400x400/filters:quality(100)')
+          ? transformImage(image, 'fit-in/400x400/filters:quality(80)')
           : ''
         return url
       })

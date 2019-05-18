@@ -14,7 +14,12 @@
           {{ item.title }}
         </nuxt-link>
       </v-btn>
-      <v-menu v-for="item in subMenus" :key="item._uid" top>
+      <v-menu
+        v-for="item in subMenus"
+        :key="item._uid"
+        top
+        transition="slide-y-transition"
+      >
         <template v-slot:activator="{ on }">
           <v-btn dark flat :ripple="false" v-on="on">
             {{ item.title }}

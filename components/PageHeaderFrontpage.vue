@@ -16,7 +16,9 @@ export default {
   computed: {
     imgUrl() {
       const image = this.blok.image
-      const url = image ? transformImage(image, '2000x1000/smart') : ''
+      const url = image
+        ? transformImage(image, '2000x1000/smart/filters:quality(80)')
+        : ''
       return url
     },
     imageHeight() {

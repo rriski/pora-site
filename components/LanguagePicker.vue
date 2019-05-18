@@ -1,6 +1,10 @@
 <template>
   <div class="text-xs-center">
-    <v-menu :open-on-hover="!$breakpoint.is.smAndDown" offset-y>
+    <v-menu
+      :open-on-hover="!$breakpoint.is.smAndDown"
+      offset-y
+      transition="slide-y-transition"
+    >
       <template v-slot:activator="{ on }">
         <v-btn flat v-on="on">
           Language

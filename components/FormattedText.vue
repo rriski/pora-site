@@ -1,7 +1,7 @@
 <template>
   <div v-editable="blok">
     <v-card :class="[getElevation, getPadding]">
-      <div v-html="content"></div>
+      <div class="text__container" v-html="content"></div>
     </v-card>
   </div>
 </template>
@@ -29,3 +29,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~assets/_variables.scss';
+
+.text__container a {
+  color: $link-color;
+  border-bottom: 2px solid $link-color;
+
+  &:hover,
+  &:focus {
+    color: $link-color-hover;
+  }
+}
+
+.text__container a:hover {
+  border-bottom: 2px solid $link-color-hover;
+}
+</style>

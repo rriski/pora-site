@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    v-if="$breakpoint.is.smAndDown"
     :value="drawer"
     fixed
     disable-resize-watcher
@@ -15,7 +16,7 @@
       </div>
       <div v-for="item in subMenus" :key="item._uid" two-line>
         <div class="drawer__submenu__list">
-          <span>{{ item.title }}</span>
+          <span class="drawer__submenu__list__title">{{ item.title }}</span>
           <div
             v-for="submenu_item in item.submenu"
             :key="submenu_item._uid"
@@ -82,6 +83,10 @@ export default {
 .drawer__submenu__list {
   display: flex;
   flex-direction: column;
+}
+
+.drawer__submenu__list__title {
+  color: darken(white, 50%);
 }
 
 .drawer__submenu__list__subtitle {

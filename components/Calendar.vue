@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-editable="blok">
     <v-flex xs12 class="mb-3 calendar__container">
       <v-sheet>
         <v-calendar
@@ -91,14 +91,10 @@
     </v-flex>
     <v-flex xs12>
       <v-btn @click="$refs.calendar.prev()">
-        <v-icon dark left>
-          keyboard_arrow_left
-        </v-icon>
+        <v-icon dark left>keyboard_arrow_left</v-icon>
       </v-btn>
       <v-btn @click="$refs.calendar.next()">
-        <v-icon right dark>
-          keyboard_arrow_right
-        </v-icon>
+        <v-icon right dark>keyboard_arrow_right</v-icon>
       </v-btn>
     </v-flex>
   </div>

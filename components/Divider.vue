@@ -1,3 +1,3 @@
 <template>
-  <v-divider :inset="true" />
+  <v-divider v-editable="blok" :inset="true" />
 </template>

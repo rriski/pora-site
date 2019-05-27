@@ -1,5 +1,11 @@
 <template>
-  <v-layout align-start column justify-center :align-center="isFrontPage">
+  <v-layout
+    v-editable="blok"
+    align-start
+    column
+    justify-center
+    :align-center="isFrontPage"
+  >
     <span
       :class="{
         'page__title--sm': $breakpoint.is.smAndDown,
@@ -7,9 +13,8 @@
         'page__frontpage--xs': $breakpoint.is.xsOnly && isFrontPage
       }"
       class="page__title font-weight-bold"
+      >{{ blok.title }}</span
     >
-      {{ blok.title }}
-    </span>
   </v-layout>
 </template>
 

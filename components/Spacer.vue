@@ -1,5 +1,9 @@
 <template>
-  <div class="spacer" :style="{ height: blok.height + 'px' }" />
+  <div
+    v-editable="blok"
+    class="spacer"
+    :style="{ height: blok.height + 'px' }"
+  />
 </template>
 
 <script>

@@ -1,7 +1,5 @@
 <template>
-  <div class="title">
-    {{ blok.title }}
-  </div>
+  <div v-editable="blok" class="title">{{ blok.title }}</div>
 </template>
 
 <script>

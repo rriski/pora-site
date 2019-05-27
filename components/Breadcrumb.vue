@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs :items="items" divider=">" />
+  <v-breadcrumbs v-editable="blok" :items="items" divider=">" />
 </template>
 
 <script>

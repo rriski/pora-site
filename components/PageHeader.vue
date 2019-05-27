@@ -1,5 +1,5 @@
 <template>
-  <v-parallax dark :src="imgUrl" :height="imageHeight">
+  <v-parallax v-editable="blok" dark :src="imgUrl" :height="imageHeight">
     <PageHeaderTitle :blok="blok" />
   </v-parallax>
 </template>

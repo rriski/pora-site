@@ -1,5 +1,5 @@
 <template>
-  <v-img class="image" :src="imgUrl" />
+  <v-img v-editable="blok" class="image" :src="imgUrl" />
 </template>
 
 <script>

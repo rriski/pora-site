@@ -16,6 +16,7 @@ import Breadcrumb from '~/components/Breadcrumb.vue'
 import Spacer from '~/components/Spacer.vue'
 import Timeline from '~/components/Timeline.vue'
 import Calendar from '~/components/Calendar.vue'
+import Quote from '~/components/Quote.vue'
 
 Vue.component('blok-page', Page)
 Vue.component('blok-menu', Menu)
@@ -34,3 +35,4 @@ Vue.component('blok-breadcrumb', Breadcrumb)
 Vue.component('blok-spacer', Spacer)
 Vue.component('blok-timeline', Timeline)
 Vue.component('blok-calendar', Calendar)
+Vue.component('blok-quote', Quote)

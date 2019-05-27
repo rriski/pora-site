@@ -1,19 +1,23 @@
 <template>
-  <v-layout align-start column justify-center :align-center="true">
+  <v-layout
+    v-editable="blok"
+    align-start
+    column
+    justify-center
+    :align-center="true"
+  >
     <span
       :class="{
         'page__title__frontpage--sm': $breakpoint.is.smAndDown
       }"
       class="page__title__frontpage font-weight-bold"
+      >{{ blok.title }}</span
     >
-      {{ blok.title }}
-    </span>
     <span
       :class="{ 'page__subtitle--sm': $breakpoint.is.smAndDown }"
       class="page__subtitle font-weight-medium font-italic"
+      >{{ blok.subtitle }}</span
     >
-      {{ blok.subtitle }}
-    </span>
   </v-layout>
 </template>
 

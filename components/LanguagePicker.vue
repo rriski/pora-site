@@ -70,14 +70,7 @@ export default {
   margin-right: 5px;
 }
 
-.flag-icon-background {
-  background-size: contain;
-  background-position: 50%;
-  background-repeat: no-repeat;
-}
-
 .flag-icon {
-  @extend .flag-icon-background;
   position: relative;
   display: inline-block;
   width: (4 / 3) * 1em;

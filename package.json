@@ -24,7 +24,7 @@
     "cross-env": "^5.2.0",
     "flag-icon-css": "^3.3.0",
     "markdown-it": "^8.4.2",
-    "nuxt": "^2.7.1",
+    "nuxt": "^2.8.1",
     "nuxt-fontawesome": "^0.4.0",
     "storyblok-nuxt": "^1.0.1",
     "vue-content-loader": "^0.2.2",

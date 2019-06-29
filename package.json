@@ -29,7 +29,7 @@
     "storyblok-nuxt": "^1.0.1",
     "vue-content-loader": "^0.2.2",
     "vue-gapi": "^0.0.10",
-    "vuetify": "^1.5.14",
+    "vuetify": "^1.5.16",
     "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {

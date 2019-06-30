@@ -1,4 +1,3 @@
-import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import axios from 'axios'
 import pkg from './package'
 
@@ -73,13 +72,12 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/style/app.styl', '~/assets/_global.scss'],
+  css: ['~/assets/_global.scss'],
 
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/vuetify',
     '~/plugins/components',
     '~/plugins/filters',
     '~/plugins/breakpoints',
@@ -112,6 +110,13 @@ export default {
       }
     ]
   ],
+
+  devModules: ['@nuxtjs/vuetify'],
+
+  // Vuetify options
+  vuetify: {
+    theme: { primary: '#fff' }
+  },
 
   /*
    ** Nuxt.js middleware
@@ -157,13 +162,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    transpile: ['vuetify/lib'],
-    plugins: [new VuetifyLoaderPlugin()],
-    loaders: {
-      stylus: {
-        import: ['~assets/style/variables.styl']
-      }
-    },
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

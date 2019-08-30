@@ -4,6 +4,7 @@
     class="footer"
     :class="{ 'footer--sm': $breakpoint.is.smAndDown }"
   >
+    <Sponsor />
     <Quote />
     <SocialMedia />
   </v-footer>
@@ -12,11 +13,13 @@
 <script>
 import SocialMedia from '~/components/SocialMedia.vue'
 import Quote from '~/components/Quote.vue'
+import Sponsor from '~/components/Sponsor.vue'
 
 export default {
   components: {
     SocialMedia,
-    Quote
+    Quote,
+    Sponsor
   }
 }
 </script>

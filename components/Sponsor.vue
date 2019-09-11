@@ -6,7 +6,13 @@
     class="sponsor__container"
   >
     <img class="sponsor__img" src="~/assets/images/vichy.jpg" />
-    <span class="sponsor__text">{{ text }}</span>
+    <span
+      :class="{
+        'sponsor__text--sm': $breakpoint.is.smAndDown
+      }"
+      class="sponsor__text"
+      >{{ text }}
+    </span>
   </div>
 </template>
 
@@ -14,8 +20,16 @@
 export default {
   data: function() {
     return {
-      text: 'Värska Vichy - PoRan virallinen juoma, luonnollisesti...'
+      text: this.$store.state.settings.sponsor
     }
+  },
+  watch: {
+    $route(to, from) {
+      this.text = this.$store.state.settings.sponsor
+    }
+  },
+  created() {
+    this.text = this.$store.state.settings.sponsor
   }
 }
 </script>
@@ -41,5 +55,9 @@ export default {
 
 .sponsor__text {
   margin: 0;
+}
+
+.sponsor__text--sm {
+  display: none;
 }
 </style>
